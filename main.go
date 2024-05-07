@@ -46,14 +46,16 @@ func main() {
 		// volume backup
 		if backup.Type == models.Volume {
 			backupFunc = func() {
-				handleBackup(backup, utils.BackupVolume)
+				b := backup
+				handleBackup(b, utils.BackupVolume)
 			}
 		}
 		// mysql dump backup
 		if backup.Type == models.Mysql {
 			backupFunc = func() {
+				b := backup
 				// TODO mysql dump backup
-				handleBackup(backup, func(backup models.Backup) error {
+				handleBackup(b, func(backup models.Backup) error {
 					log.Println("TODO mysql dump backup")
 					return nil
 				})

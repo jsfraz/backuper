@@ -40,7 +40,7 @@ services:
     restart: always
     volumes:
       - mediawiki:/tmp/mediawiki    # volume to backup
-      # TODO uncomment and delete abckuper_text.json
+      # TODO uncomment and delete backuper_text.json
       # - ./backuper.json:/app/backuper.json   # backuper settings
       - ./backuper_test.json:/app/backuper.json
 

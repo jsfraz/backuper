@@ -106,12 +106,9 @@ func uploadToMegaAndDelete(localFilePath string, fileName string, megaDir string
 	removeErr := os.Remove(localFilePath)
 	if removeErr != nil {
 		log.Println("Error deleting "+localFilePath+": ", removeErr)
-	}
-	if err != nil {
 		return nil, err
-	} else {
-		return uploadNode, nil
 	}
+	return uploadNode, nil
 }
 
 // Backup volume to Mega.
@@ -131,13 +128,11 @@ func BackupVolume(backup models.Backup) error {
 	if backup.LastCopies != 0 {
 		// FIXME every time after first backup, it throws error 'Object (typically, node or user) not found'
 		// every cron iteration the error count increases
-		_ = MegaDeleteFilesByLastCopyCount(backup, uploadNode)
-		/*
-			deleteErr := MegaDeleteFilesByLastCopyCount(backup, uploadNode)
-			if deleteErr != nil {
-				log.Println("Error deleting oldest file(s) in '"+uploadNode.GetName()+"': ", deleteErr)
-			}
-		*/
+		// _ = MegaDeleteFilesByLastCopyCount(backup, uploadNode)
+		deleteErr := MegaDeleteFilesByLastCopyCount(backup, uploadNode)
+		if deleteErr != nil {
+			log.Println("Error deleting oldest file(s) in '"+uploadNode.GetName()+"': ", deleteErr)
+		}
 	}
 	return err
 }
